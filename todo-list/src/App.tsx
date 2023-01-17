@@ -9,9 +9,16 @@ function App() {
       <h1>Todoリスト中級編</h1>
         <form>
           <p>タイトル</p>
-          <input name="title" type="text" placeholder="タイトル"/><br/>
+          <input
+            name="title"
+            type="text"
+            placeholder="タイトル"
+          /><br/>
           <p>詳細</p>
-          <textarea name="detail" placeholder="todoの詳細"/><br/>
+          <textarea
+            name="detail"
+            placeholder="todoの詳細"
+          /><br/>
           <button>追加</button>
         </form>
       <div>
@@ -27,6 +34,24 @@ function App() {
           </thead>
         </table>
       </div>
+        {/* todo一覧が下に配置される */}
+        <tbody>
+          <tr>
+            <td>ID番号</td>
+            <td>todoのタイトル</td>
+            <td>todoの内容</td>
+          </tr>
+          <td>
+            <select>
+              <option>未着手</option>
+              <option>進行中</option>
+              <option>完了</option>
+            </select>
+          </td>
+          <td>
+            <button>削除</button>
+          </td>
+        </tbody>
     </div>
   );
 }
