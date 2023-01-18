@@ -1,28 +1,50 @@
 import { useState } from "react";
 
 function App() {
+  type Todo = {
+    id: number;
+    todoTitle: string; //タイトル
+    todoContent: string; //内容
+    deleted: boolean; //削除されたかどうか
+  }
+
   //todoの追加
-  const [todo, setTodo] = useState("");
+  // const [todo, setTodo] = useState<Todo[]>([]);
+  // const [addTodos, setAddTodos] = useState([""]);
+
+  // const onChangeTodo = (e) => setTodo(e.target.value);
+
+  // const onClickAdd = () => {
+  //   if (todo === "") return;
+  //   setAddTodos =([...addTodos, todo]);
+  //   setTodo("")
+  // };
 
   return (
     <div className="App">
       <h1>Todoリスト中級編</h1>
+        {/* フォーム */}
         <form>
           <p>タイトル</p>
           <input
             name="title"
             type="text"
             placeholder="タイトル"
+            // onChange={onChangeTodo}
           /><br/>
           <p>詳細</p>
           <textarea
             name="detail"
             placeholder="todoの詳細"
+            // onChange={onChangeTodo}
           /><br/>
+
+          {/* 追加ボタン */}
           <button>追加</button>
         </form>
       <div>
         <h2>Todo一覧</h2>
+        {/* 何を書いてあるか */}
         <table>
           <thead>
             <tr>
@@ -32,28 +54,31 @@ function App() {
               <td>状態</td>
             </tr>
           </thead>
-        </table>
-      </div>
         {/* todo一覧が下に配置される */}
         <tbody>
+          {/* {addTodos.map((todo, index, content) =>( */}
           <tr>
-            <td>ID番号</td>
-            <td>todoのタイトル</td>
-            <td>todoの内容</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <select>
+                <option>未着手</option>
+                <option>進行中</option>
+                <option>完了</option>
+              </select>
+            </td>
+            <td>
+              {/* 削除ボタン */}
+              <button>削除</button>
+            </td>
           </tr>
-          <td>
-            <select>
-              <option>未着手</option>
-              <option>進行中</option>
-              <option>完了</option>
-            </select>
-          </td>
-          <td>
-            <button>削除</button>
-          </td>
+          {/* ))} */}
         </tbody>
+        </table>
+      </div>
     </div>
   );
-}
+};
 
 export default App;
