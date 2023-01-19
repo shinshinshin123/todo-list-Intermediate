@@ -3,29 +3,31 @@ import { useState } from "react";
 function App() {
   type Todo = {
     id: number;
-    todo: string; //タイトル
-    // todoContent: string; //内容
+    addTodo: string; //タイトル
+    // addContent: string; //内容
     deleted: boolean; //削除されたかどうか
   };
 
   //todoの追加
+  const [addTodo, setAddTodo] = useState("");
   const [todo, setTodo] = useState<Todo[]>([]);
-  const [addTodos, setAddTodos] = useState("");
-  const onChangeTodo = (e: { target: { value: string; }; }) => {
-    setAddTodos(e.target.value);
-  };
+
+  const onChangeTodo = (e: { target: { value: string; }; }) => setAddTodo(e.target.value);
+
   const onClickAdd = (e: { preventDefault: () => void; }) => {
-    // if (todo === []) return;
+    // if (todo === "") return;
     e.preventDefault();
 
     //新しいTodoを追加
-    const todo: Todo = {
-      todo: todo,
-      id: todo,
+    const isTodo: Todo = {
+      id: todo.length,
+      addTodo: addTodo,
+      // addContent: addContent,
       deleted: false,
     }
 
-
+    setTodo([isTodo, ...todo]);
+    setAddTodo("");
   };
 
   // const onChangeTodo = (e) => setTodo(e.target.value);
@@ -68,29 +70,30 @@ function App() {
               <td>ID</td>
               <td>タイトル</td>
               <td>詳細</td>
-              <td>状態</td>
+              {/* <td>状態</td> */}
             </tr>
           </thead>
         {/* todo一覧が下に配置される */}
         <tbody>
-          {/* {addTodos.map((todo, index, content) =>( */}
+          {todo.map((todo) =>(
           <tr>
+            <td>{todo.id + 1}</td>
+            <td>{todo.addTodo}</td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td>
+            {/* ステータス */}
+            {/* <td>
               <select>
                 <option>未着手</option>
                 <option>進行中</option>
                 <option>完了</option>
               </select>
-            </td>
+            </td> */}
             <td>
               {/* 削除ボタン */}
               <button>削除</button>
             </td>
           </tr>
-          {/* ))} */}
+          ))}
         </tbody>
         </table>
       </div>
