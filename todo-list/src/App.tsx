@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 function App() {
   type Todo = {
@@ -28,6 +28,10 @@ function App() {
     setTodo([isTodo, ...todo]);
     setAddTodo("");
   };
+
+  //todoのステータスセレクトボックス
+  const [status, setStatus] = React.useState("react");
+  const statusChange = (e: { target: { value: React.SetStateAction<string>; }; }) => setStatus(e.target.value);
 
   return (
     <div className="App">
@@ -70,13 +74,13 @@ function App() {
             <td>{todo.title}</td>
             <td>{todo.content}</td>
             {/* ステータス */}
-            {/* <td>
-              <select>
+            <td>
+              <select value={status} onChange={statusChange}>
                 <option>未着手</option>
                 <option>進行中</option>
                 <option>完了</option>
               </select>
-            </td> */}
+            </td>
             <td>
               {/* 削除ボタン */}
               <button>削除</button>
