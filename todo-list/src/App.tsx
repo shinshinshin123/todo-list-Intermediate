@@ -3,14 +3,30 @@ import { useState } from "react";
 function App() {
   type Todo = {
     id: number;
-    todoTitle: string; //タイトル
-    todoContent: string; //内容
+    todo: string; //タイトル
+    // todoContent: string; //内容
     deleted: boolean; //削除されたかどうか
-  }
+  };
 
   //todoの追加
-  // const [todo, setTodo] = useState<Todo[]>([]);
-  // const [addTodos, setAddTodos] = useState([""]);
+  const [todo, setTodo] = useState<Todo[]>([]);
+  const [addTodos, setAddTodos] = useState("");
+  const onChangeTodo = (e: { target: { value: string; }; }) => {
+    setAddTodos(e.target.value);
+  };
+  const onClickAdd = (e: { preventDefault: () => void; }) => {
+    // if (todo === []) return;
+    e.preventDefault();
+
+    //新しいTodoを追加
+    const todo: Todo = {
+      todo: todo,
+      id: todo,
+      deleted: false,
+    }
+
+
+  };
 
   // const onChangeTodo = (e) => setTodo(e.target.value);
 
@@ -28,19 +44,20 @@ function App() {
           <p>タイトル</p>
           <input
             name="title"
-            type="text"
             placeholder="タイトル"
-            // onChange={onChangeTodo}
+            // value={todo}
+            onChange={onChangeTodo}
           /><br/>
-          <p>詳細</p>
+          {/* <p>詳細</p>
           <textarea
             name="detail"
             placeholder="todoの詳細"
-            // onChange={onChangeTodo}
-          /><br/>
+            value={todo}
+            onChange={() => {}}
+          /><br/> */}
 
           {/* 追加ボタン */}
-          <button>追加</button>
+          <button onClick={onClickAdd}>追加</button>
         </form>
       <div>
         <h2>Todo一覧</h2>
