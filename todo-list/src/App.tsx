@@ -30,7 +30,9 @@ function App() {
   };
 
   //todoの削除
-  const onClickDelete = (id: number) => setAddTodo.filter((id: number) => id!== id)
+  // const onClickDelete = (id: number) => {
+  //   setAddTodo(addTodo.filter((todo:any) => todo.id !== id));
+  // };
 
   return (
     <div className="App">
@@ -82,7 +84,8 @@ function App() {
             </td> */}
             <td>
               {/* 削除ボタン */}
-              <button onClick={() => onClickDelete(todo)}>削除</button>
+              {/* <button onClick={() => onClickDelete(todo.id)}>削除</button> */}
+              <button>削除</button>
             </td>
           </tr>
           ))}
