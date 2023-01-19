@@ -29,6 +29,9 @@ function App() {
     setAddTodo("");
   };
 
+  //todoの削除
+  const onClickDelete = (id: number) => setAddTodo.filter((id: number) => id!== id)
+
   return (
     <div className="App">
       <h1>Todoリスト中級編</h1>
@@ -79,7 +82,7 @@ function App() {
             </td> */}
             <td>
               {/* 削除ボタン */}
-              <button>削除</button>
+              <button onClick={() => onClickDelete(todo)}>削除</button>
             </td>
           </tr>
           ))}
