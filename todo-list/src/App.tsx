@@ -2,9 +2,9 @@ import { useState } from "react";
 
 function App() {
   type Todo = {
-    id: number;
-    addTodo: string; //タイトル
-    // addContent: string; //内容
+    id: number; //id
+    title: string; //タイトル
+    content: string; //内容
     deleted: boolean; //削除されたかどうか
   };
 
@@ -15,28 +15,19 @@ function App() {
   const onChangeTodo = (e: { target: { value: string; }; }) => setAddTodo(e.target.value);
 
   const onClickAdd = (e: { preventDefault: () => void; }) => {
-    // if (todo === "") return;
     e.preventDefault();
 
-    //新しいTodoを追加
+    //新しいTodoを追加する
     const isTodo: Todo = {
       id: todo.length,
-      addTodo: addTodo,
-      // addContent: addContent,
+      title: addTodo,
+      content: addTodo,
       deleted: false,
     }
 
     setTodo([isTodo, ...todo]);
     setAddTodo("");
   };
-
-  // const onChangeTodo = (e) => setTodo(e.target.value);
-
-  // const onClickAdd = () => {
-  //   if (todo === "") return;
-  //   setAddTodos =([...addTodos, todo]);
-  //   setTodo("")
-  // };
 
   return (
     <div className="App">
@@ -47,16 +38,14 @@ function App() {
           <input
             name="title"
             placeholder="タイトル"
-            // value={todo}
             onChange={onChangeTodo}
           /><br/>
-          {/* <p>詳細</p>
+          <p>詳細</p>
           <textarea
             name="detail"
             placeholder="todoの詳細"
-            value={todo}
-            onChange={() => {}}
-          /><br/> */}
+            onChange={onChangeTodo}
+          /><br/>
 
           {/* 追加ボタン */}
           <button onClick={onClickAdd}>追加</button>
@@ -76,10 +65,10 @@ function App() {
         {/* todo一覧が下に配置される */}
         <tbody>
           {todo.map((todo) =>(
-          <tr>
+          <tr key={todo.id}>
             <td>{todo.id + 1}</td>
-            <td>{todo.addTodo}</td>
-            <td></td>
+            <td>{todo.title}</td>
+            <td>{todo.content}</td>
             {/* ステータス */}
             {/* <td>
               <select>
