@@ -68,9 +68,9 @@ function App() {
           </thead>
         {/* todo一覧が下に配置される */}
         <tbody>
-          {todo.map((todo) =>(
-          <tr key={todo.id}>
-            <td>{todo.id + 1}</td>
+          {todo.map((todo, index) =>(
+          <tr key={index}>
+            <td>{index + 1}</td>
             <td>{todo.title}</td>
             <td>{todo.content}</td>
             {/* ステータス */}
