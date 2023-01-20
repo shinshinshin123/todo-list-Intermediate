@@ -8,7 +8,7 @@ function App() {
     deleted: boolean; //削除されたかどうか
   };
 
-  //todoの追加
+  //〜todoの追加〜
   //todoの集合
   const [addTodo, setAddTodo] = useState("");
   //todoの単体
@@ -30,19 +30,6 @@ function App() {
     setTodo([isTodo, ...todo]);
     setAddTodo("");
   };
-
-  //todoのステータスセレクトボックス
-  const [status, setStatus] = React.useState("react");
-  const statusChange = (e: { target: { value: React.SetStateAction<string>; }; }) => setStatus(e.target.value);
-
-  //todoの編集機能
-  // const onClickEdit = (id: number, todo: string) => {
-  //     const isTodo = todo.map((todo) => {
-  //       if (todo.id === id ) {
-  //         todo = todo;
-  //       }
-  //     });
-  // };
 
   return (
     <div className="App">
@@ -69,20 +56,20 @@ function App() {
         <h2>Todo一覧</h2>
         <table>
           {/* todo一覧が下に配置される */}
+          <thead>
+            <tr>
+              <td>ID</td>
+              <td>タイトル</td>
+              <td>詳細</td>
+              <td>状態</td>
+            </tr>
+          </thead>
           <tbody>
-            {todo.map((todo) =>(
+            {todo.map((todo, index) =>(
               <tr key={todo.id}>
-                <td>{todo.id + 1}</td>
+                <td>{index + 1}</td>
                 <td>{todo.title}</td>
                 <td>{todo.content}</td>
-                {/* ステータス */}
-                <td>
-                  <select value={status} onChange={statusChange}>
-                    <option>未着手</option>
-                    <option>進行中</option>
-                    <option>完了</option>
-                  </select>
-                </td>
                 {/* 編集ボタン */}
                 <td>
                   <button>編集</button>
