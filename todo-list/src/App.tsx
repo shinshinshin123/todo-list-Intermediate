@@ -3,8 +3,8 @@ import { useState } from "react";
 function App() {
   type Todo = {
     id: number; //id
-    title: string; //タイトル
-    content: string; //内容
+    title: string | number; //タイトル
+    content: string | number; //内容
     deleted: boolean; //削除されたかどうか
   };
 
@@ -30,9 +30,7 @@ function App() {
   };
 
   //todoの削除
-  // const onClickDelete = (id: number) => {
-  //   setAddTodo(addTodo.filter((todo:any) => todo.id !== id));
-  // };
+  const onClickDelete = (index: number) => setAddTodo(addTodo.splice(index, 1))
 
   return (
     <div className="App">
@@ -69,9 +67,9 @@ function App() {
           </thead>
         {/* todo一覧が下に配置される */}
         <tbody>
-          {todo.map((todo) =>(
+          {todo.map((todo, index) =>(
           <tr key={todo.id}>
-            <td>{todo.id + 1}</td>
+            <td>{index + 1}</td>
             <td>{todo.title}</td>
             <td>{todo.content}</td>
             {/* ステータス */}
@@ -84,7 +82,7 @@ function App() {
             </td> */}
             <td>
               {/* 削除ボタン */}
-              {/* <button onClick={() => onClickDelete(todo.id)}>削除</button> */}
+              <button onClick={() => onClickDelete(index)}>削除</button>
               <button>削除</button>
             </td>
           </tr>
