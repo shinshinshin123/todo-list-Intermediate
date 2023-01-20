@@ -3,8 +3,8 @@ import { useState } from "react";
 function App() {
   type Todo = {
     id: number; //id
-    title: string | number; //タイトル
-    content: string | number; //内容
+    title: string; //タイトル
+    content: string; //内容
     deleted: boolean; //削除されたかどうか
   };
 
