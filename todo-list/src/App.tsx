@@ -9,7 +9,9 @@ function App() {
   };
 
   //todoの追加
+  //todoの集合
   const [addTodo, setAddTodo] = useState("");
+  //todoの単体
   const [todo, setTodo] = useState<Todo[]>([]);
 
   const onChangeTodo = (e: { target: { value: string; }; }) => setAddTodo(e.target.value);
@@ -32,6 +34,15 @@ function App() {
   //todoのステータスセレクトボックス
   const [status, setStatus] = React.useState("react");
   const statusChange = (e: { target: { value: React.SetStateAction<string>; }; }) => setStatus(e.target.value);
+
+  //todoの編集機能
+  // const onClickEdit = (id: number, todo: string) => {
+  //     const isTodo = todo.map((todo) => {
+  //       if (todo.id === id ) {
+  //         todo = todo;
+  //       }
+  //     });
+  // };
 
   return (
     <div className="App">
@@ -56,38 +67,33 @@ function App() {
         </form>
       <div>
         <h2>Todo一覧</h2>
-        {/* 何を書いてあるか */}
         <table>
-          <thead>
-            <tr>
-              <td>ID</td>
-              <td>タイトル</td>
-              <td>詳細</td>
-              {/* <td>状態</td> */}
-            </tr>
-          </thead>
-        {/* todo一覧が下に配置される */}
-        <tbody>
-          {todo.map((todo) =>(
-          <tr key={todo.id}>
-            <td>{todo.id + 1}</td>
-            <td>{todo.title}</td>
-            <td>{todo.content}</td>
-            {/* ステータス */}
-            <td>
-              <select value={status} onChange={statusChange}>
-                <option>未着手</option>
-                <option>進行中</option>
-                <option>完了</option>
-              </select>
-            </td>
-            <td>
-              {/* 削除ボタン */}
-              <button>削除</button>
-            </td>
-          </tr>
-          ))}
-        </tbody>
+          {/* todo一覧が下に配置される */}
+          <tbody>
+            {todo.map((todo) =>(
+              <tr key={todo.id}>
+                <td>{todo.id + 1}</td>
+                <td>{todo.title}</td>
+                <td>{todo.content}</td>
+                {/* ステータス */}
+                <td>
+                  <select value={status} onChange={statusChange}>
+                    <option>未着手</option>
+                    <option>進行中</option>
+                    <option>完了</option>
+                  </select>
+                </td>
+                {/* 編集ボタン */}
+                <td>
+                  <button>編集</button>
+                </td>
+                {/* 削除ボタン */}
+                <td>
+                  <button>削除</button>
+                </td>
+              </tr>
+              ))}
+          </tbody>
         </table>
       </div>
     </div>
