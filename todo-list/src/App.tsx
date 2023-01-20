@@ -15,6 +15,7 @@ function App() {
   const onChangeTodo = (e: { target: { value: string; }; }) => setAddTodo(e.target.value);
 
   const onClickAdd = (e: { preventDefault: () => void; }) => {
+    // if (todo === "") return;
     e.preventDefault();
 
     //新しいTodoを追加する
@@ -30,7 +31,9 @@ function App() {
   };
 
   //todoの削除
-  const onClickDelete = (index: number) => setAddTodo(addTodo.splice(index, 1))
+  const onClickDelete = (index: number) => {
+    setAddTodo(addTodo.splice(index, 1));
+  };
 
   return (
     <div className="App">
@@ -72,18 +75,9 @@ function App() {
             <td>{index + 1}</td>
             <td>{todo.title}</td>
             <td>{todo.content}</td>
-            {/* ステータス */}
-            {/* <td>
-              <select>
-                <option>未着手</option>
-                <option>進行中</option>
-                <option>完了</option>
-              </select>
-            </td> */}
             <td>
               {/* 削除ボタン */}
               <button onClick={() => onClickDelete(index)}>削除</button>
-              <button>削除</button>
             </td>
           </tr>
           ))}
