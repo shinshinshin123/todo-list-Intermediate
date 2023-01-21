@@ -24,7 +24,8 @@
 ### スタイル系　
 - ChakraUI　を使ってみる
 - Tailwind CSSを使ってみる
-- Recoilを使って状態管理
+
 ### その他
+- Recoilを使って状態管理
 - Firebaseを導入してデータの永続化
 - Supabaseを導入してデータの永続化
