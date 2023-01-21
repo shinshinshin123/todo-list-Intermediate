@@ -9,25 +9,31 @@ function App() {
   };
 
   //todoの追加
-  const [addTodo, setAddTodo] = useState("");
+  const [todoList, setTodoList] = useState("");
   const [todo, setTodo] = useState<Todo[]>([]);
 
-  const onChangeTodo = (e: { target: { value: string; }; }) => setAddTodo(e.target.value);
+  const onChangeTodo = (e: React.ChangeEvent<HTMLInputElement>) => setTodoList(e.target.value);
 
   const onClickAdd = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
-    //新しいTodoを追加する
+    // //新しいTodoを追加する
     const isTodo: Todo = {
       id: todo.length,
-      title: addTodo,
-      content: addTodo,
+      title: todoList,
+      content: todoList,
       deleted: false,
     }
 
     setTodo([isTodo, ...todo]);
-    setAddTodo("");
+    setTodoList("");
   };
+
+  //削除機能
+  // const onClickDelete = (id: number) => {
+  //     const newState = todoList.filter((todo:any) => todo.id !== id)
+  //     setTodoList(newState);
+  // }
 
   return (
     <div className="App">
@@ -41,7 +47,7 @@ function App() {
             onChange={onChangeTodo}
           /><br/>
           <p>詳細</p>
-          <textarea
+          <input
             name="detail"
             placeholder="todoの詳細"
             onChange={onChangeTodo}
@@ -63,20 +69,12 @@ function App() {
             </tr>
           </thead>
         {/* todo一覧が下に配置される */}
-        <tbody>
+        <tbody>5y
           {todo.map((todo) =>(
           <tr key={todo.id}>
             <td>{todo.id + 1}</td>
             <td>{todo.title}</td>
             <td>{todo.content}</td>
-            {/* ステータス */}
-            {/* <td>
-              <select>
-                <option>未着手</option>
-                <option>進行中</option>
-                <option>完了</option>
-              </select>
-            </td> */}
             <td>
               {/* 削除ボタン */}
               <button>削除</button>
