@@ -1,33 +1,39 @@
 import { useState } from "react";
 
+export type Todo = {
+  id: number; //id
+  title: string; //タイトル
+  content: string; //内容
+  deleted: boolean; //削除されたかどうか
+};
+
 function App() {
-  type Todo = {
-    id: number; //id
-    title: string; //タイトル
-    content: string; //内容
-    deleted: boolean; //削除されたかどうか
-  };
-
   //todoの追加
-  const [addTodo, setAddTodo] = useState("");
   const [todo, setTodo] = useState<Todo[]>([]);
+  const [todoList, setTodoList] = useState("");
 
-  const onChangeTodo = (e: { target: { value: string; }; }) => setAddTodo(e.target.value);
+  const onChangeTodo = (e: React.ChangeEvent<HTMLInputElement>) => setTodoList(e.target.value);
 
   const onClickAdd = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
+    if (todoList === "") return;
 
-    //新しいTodoを追加する
+    // //新しいTodoを追加する
     const isTodo: Todo = {
       id: todo.length,
-      title: addTodo,
-      content: addTodo,
+      title: todoList,
+      content: todoList,
       deleted: false,
     }
 
     setTodo([isTodo, ...todo]);
-    setAddTodo("");
+    setTodoList("");
   };
+
+  //削除機能
+  const onClickDelete = (id: number) => {
+      setTodo(todo.filter((todo) => todo.id !== id));
+  }
 
   return (
     <div className="App">
@@ -41,14 +47,14 @@ function App() {
             onChange={onChangeTodo}
           /><br/>
           <p>詳細</p>
-          <textarea
+          <input
             name="detail"
             placeholder="todoの詳細"
             onChange={onChangeTodo}
           /><br/>
 
           {/* 追加ボタン */}
-          <button onClick={onClickAdd}>追加</button>
+          <p><button onClick={onClickAdd}>追加</button></p>
         </form>
       <div>
         <h2>Todo一覧</h2>
@@ -64,22 +70,14 @@ function App() {
           </thead>
         {/* todo一覧が下に配置される */}
         <tbody>
-          {todo.map((todo) =>(
-          <tr key={todo.id}>
-            <td>{todo.id + 1}</td>
+          {todo.map((todo, index) =>(
+          <tr key={index}>
+            <td>{index + 1}</td>
             <td>{todo.title}</td>
             <td>{todo.content}</td>
-            {/* ステータス */}
-            {/* <td>
-              <select>
-                <option>未着手</option>
-                <option>進行中</option>
-                <option>完了</option>
-              </select>
-            </td> */}
             <td>
               {/* 削除ボタン */}
-              <button>削除</button>
+              <button onClick={() => onClickDelete(todo.id)}>削除</button>
             </td>
           </tr>
           ))}
