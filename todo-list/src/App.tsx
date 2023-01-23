@@ -30,7 +30,7 @@ function App() {
     setTodoList("");
   };
 
-  // //削除機能
+  //削除機能
   const onClickDelete = (id: number) => {
       setTodo(todo.filter((todo) => todo.id !== id));
   }
