@@ -35,6 +35,10 @@ function App() {
       setTodo(todo.filter((todo) => todo.id !== id));
   }
 
+  //編集機能
+  const [edit, setEdit] = useState(null) // idがわたるのでnull
+  const [editText, setEditText] = useState("")
+
   return (
     <div className="App">
       <h1>Todoリスト中級編</h1>
@@ -48,7 +52,7 @@ function App() {
           /><br/>
           <p>詳細</p>
           <input
-            name="detail"
+            name="content"
             placeholder="todoの詳細"
             onChange={onChangeTodo}
           /><br/>
@@ -75,9 +79,26 @@ function App() {
             <td>{index + 1}</td>
             <td>{todo.title}</td>
             <td>{todo.content}</td>
+            {/* 編集フォーム */}
+            {edit === todo.id ? (
+                <input
+                  name = "text"
+                  placeholder="タイトルの編集"
+                  value={editText}
+                  onChange={(e) => setEditText(e.target.value)}
+                />
+            ) : (
+                <div>{}</div>
+            )}
             <td>
               {/* 削除ボタン */}
               <button onClick={() => onClickDelete(todo.id)}>削除</button>
+              {/* 編集ボタン */}
+              {todo.id === edit ?(
+                <button onClick={() => onClickEdit(todo.id)}>編集完了</button>
+              ) : (
+                <button onClick={() => setEdit(todo.id)}>編集</button>
+              )}
             </td>
           </tr>
           ))}
