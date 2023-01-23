@@ -44,16 +44,17 @@ function App() {
         <form>
           <p>タイトル</p>
           <input
-            name="title"
+            type="text"
+            value={todoList}
             placeholder="タイトル"
             onChange={onChangeTodo}
           /><br/>
-          <p>詳細</p>
+          {/* <p>詳細</p>
           <input
-            name="content"
+            type="text"
             placeholder="todoの詳細"
             onChange={onChangeTodo}
-          /><br/>
+          /><br/> */}
 
           {/* 追加ボタン */}
           <p><button onClick={onClickAdd}>追加</button></p>
@@ -75,18 +76,11 @@ function App() {
           {todo.map((todo, index) =>(
             <tr key={index}>
               <td>{index + 1}</td>
-              <td>
-                <input
-                  type="text"
-                  value={todo.title}
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  value={todo.content}
-                />
-              </td>
+              <td>{todo.title}</td>
+
+              {/* <td>
+                {todo.content}
+              </td> */}
               <td>
                 {/* 削除ボタン */}
                 <button onClick={() => onClickDelete(todo.id)}>削除</button>
