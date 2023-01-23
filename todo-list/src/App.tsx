@@ -36,8 +36,6 @@ function App() {
   }
 
   //編集機能
-  const [edit, setEdit] = useState(null) // idがわたるのでnull
-  const [editText, setEditText] = useState("")
 
   return (
     <div className="App">
@@ -75,32 +73,25 @@ function App() {
         {/* todo一覧が下に配置される */}
         <tbody>
           {todo.map((todo, index) =>(
-          <tr key={index}>
-            <td>{index + 1}</td>
-            <td>{todo.title}</td>
-            <td>{todo.content}</td>
-            {/* 編集フォーム */}
-            {edit === todo.id ? (
+            <tr key={index}>
+              <td>{index + 1}</td>
+              <td>
                 <input
-                  name = "text"
-                  placeholder="タイトルの編集"
-                  value={editText}
-                  onChange={(e) => setEditText(e.target.value)}
+                  type="text"
+                  value={todo.title}
                 />
-            ) : (
-                <div>{}</div>
-            )}
-            <td>
-              {/* 削除ボタン */}
-              <button onClick={() => onClickDelete(todo.id)}>削除</button>
-              {/* 編集ボタン */}
-              {todo.id === edit ?(
-                <button onClick={() => onClickEdit(todo.id)}>編集完了</button>
-              ) : (
-                <button onClick={() => setEdit(todo.id)}>編集</button>
-              )}
-            </td>
-          </tr>
+              </td>
+              <td>
+                <input
+                  type="text"
+                  value={todo.content}
+                />
+              </td>
+              <td>
+                {/* 削除ボタン */}
+                <button onClick={() => onClickDelete(todo.id)}>削除</button>
+              </td>
+            </tr>
           ))}
         </tbody>
         </table>
