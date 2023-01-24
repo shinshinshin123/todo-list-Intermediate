@@ -9,7 +9,7 @@ export type Todo = {
 
 function App() {
   //todoの追加
-  const [todo, setTodo] = useState<Todo[]>([]);
+  const [todos, setTodos] = useState<Todo[]>([]);
   const [todoList, setTodoList] = useState("");
 
   const onChangeTodo = (e: React.ChangeEvent<HTMLInputElement>) => setTodoList(e.target.value);
@@ -20,22 +20,31 @@ function App() {
 
     // //新しいTodoを追加する
     const isTodo: Todo = {
-      id: todo.length,
+      id: todos.length,
       title: todoList,
       // content: todoList,
       deleted: false,
     }
 
-    setTodo([isTodo, ...todo]);
+    setTodos([isTodo, ...todos]);
     setTodoList("");
   };
 
   //削除機能
   const onClickDelete = (id: number) => {
-      setTodo(todo.filter((todo) => todo.id !== id));
+      setTodos(todos.filter((todo) => todo.id !== id));
   }
 
   //編集機能
+  const onClickEdit = (id: number, title: string) => {
+    const newTodo = todos.map((todo) => {
+      if(todo.id === id) {
+        todo.title = title;
+      }
+      return todo;
+    })
+    setTodos(newTodo);
+  };
 
   return (
     <div className="App">
@@ -72,10 +81,16 @@ function App() {
           </thead>
         {/* todo一覧が下に配置される */}
         <tbody>
-          {todo.map((todo, index) =>(
+          {todos.map((todo, index) =>(
             <tr key={index}>
               <td>{index + 1}</td>
-              <td>{todo.title}</td>
+              <td>
+                <input
+                  type="text"
+                  value={todo.title}
+                  onChange={(e) => onClickEdit(todo.id, e.target.value)}
+                />
+              </td>
               {/* <td>{todo.content}</td> */}
               <td>
                 {/* 削除ボタン */}
