@@ -1,9 +1,10 @@
 import { useState } from "react";
 
 export type Todo = {
-  id: number; //id
+  readonly id: number; //id
   title: string; //タイトル
   deleted: boolean; //削除されたかどうか
+  checked: boolean; //完了か未完了かのチェック
 };
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
       id: todos.length,
       title: todoList,
       deleted: false,
+      checked: false,
     }
 
     setTodos([isTodo, ...todos]);
@@ -30,13 +32,13 @@ function App() {
 
   //削除機能
   const onClickDelete = (id: number) => {
-      setTodos(todos.filter((todo) => todo.id !== id));
+    setTodos(todos.filter((todo) => todo.id !== id));
   }
 
   //編集機能
   const onClickEdit = (id: number, title: string) => {
     const newTodo = todos.map((todo) => {
-      if(todo.id === id) {
+      if (todo.id === id) {
         todo.title = title;
       }
       return todo;
@@ -44,49 +46,54 @@ function App() {
     setTodos(newTodo);
   };
 
+  //チェックボックスがチェックされた時
+  const onClickCheck = (id: number, checked: boolean) => {
+    const newTodo = todos.map((todo) => {
+      if (todo.id === id) {
+        todo.checked = !checked;
+      }
+      return todo;
+    })
+    setTodos(newTodo);
+  }
+
   return (
     <div className="App">
       <h1>Todoリスト中級編</h1>
-        {/* フォーム */}
-        <form>
-          <p>タイトル</p>
+      <form>
+        <p>タイトル</p>
           <input
             type="text"
             placeholder="タイトル"
             onChange={onChangeTodo}
           /><br/>
-          {/* 追加ボタン */}
-          <p><button onClick={onClickAdd}>追加</button></p>
-        </form>
-      <div>
+        <p><button onClick={onClickAdd}>追加</button></p>
+      </form>
+    <div>
         <h2>Todo一覧</h2>
-        {/* 何を書いてあるか */}
         <table>
-          <thead>
-            <tr>
-              <td>ID</td>
-              <td>タイトル</td>
-            </tr>
-          </thead>
-        {/* todo一覧が下に配置される */}
-        <tbody>
-          {todos.map((todo, index) =>(
-            <tr key={index}>
-              <td>{index + 1}</td>
-              <td>
-                <input
-                  type="text"
-                  value={todo.title}
-                  onChange={(e) => onClickEdit(todo.id, e.target.value)}
-                />
-              </td>
-              <td>
-                {/* 削除ボタン */}
-                <button onClick={() => onClickDelete(todo.id)}>削除</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
+          <tbody>
+            {todos.map((todo, index) =>(
+              <tr key={index}>
+                <td>{index + 1}</td>
+                <td>
+                  <input
+                    type="text"
+                    disabled={todo.checked}
+                    value={todo.title}
+                    onChange={(e) => onClickEdit(todo.id, e.target.value)}
+                  />
+                  <input
+                    type="checkbox"
+                    onChange={() => onClickCheck(todo.id, todo.checked)}
+                  />
+                </td>
+                <td>
+                  <button onClick={() => onClickDelete(todo.id)}>削除</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
     </div>
