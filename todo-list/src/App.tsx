@@ -3,7 +3,7 @@ import { useState } from "react";
 export type Todo = {
   readonly id: number; //id
   title: string; //タイトル
-  content: string; //内容
+  // content: string; //内容
   deleted: boolean; //削除されたかどうか
   checked: boolean; //完了か未完了かのチェック
 };
@@ -27,7 +27,7 @@ function App() {
     const isTodo: Todo = {
       id: todos.length,
       title: todoList,
-      content: todoList,
+      // content: todoList,
       deleted: false,
       checked: false,
     }
@@ -42,11 +42,10 @@ function App() {
   }
 
   //編集機能
-  const onClickEdit = (id: number, title: string, content: string) => {
+  const onClickEdit = (id: number, title: string) => {
     const newTodo = todos.map((todo) => {
       if (todo.id === id) {
         todo.title = title;
-        todo.content = content;
       }
       return todo;
     })
@@ -114,17 +113,14 @@ function App() {
             <option value="checked">完了したtodo</option>
             <option value="unchecked">未完了のtodo</option>
           </select>
-          {/* <table>
-            <thead>
-              <tr>
-                <td>ID</td>
-                <td>タイトル</td>
-                <td>詳細</td>
-              </tr>
-            </thead>
-          </table> */}
         </div>
         <table>
+          <thead>
+            <tr>
+              <td>ID</td>
+              <td>タイトル</td>
+            </tr>
+          </thead>
           <tbody>
             {filterTodos.map((todo, index) =>(
               <tr key={index}>
@@ -134,8 +130,10 @@ function App() {
                     type="text"
                     disabled={todo.checked}
                     value={todo.title}
-                    onChange={(e) => onClickEdit(todo.id, todo.title, e.target.value)}
+                    onChange={(e) => onClickEdit(todo.id, e.target.value)}
                   />
+                </td>
+                <td>
                   {/* <input
                     type="text"
                     disabled={todo.checked}
