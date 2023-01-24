@@ -10,30 +10,32 @@ export type Todo = {
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
-  const [todoList, setTodoList] = useState("");
+  const [todoTitle, setTodoTitle] = useState("");
+  // const [todoContent, setTodoContent] = useState("");
 
   //フィルター
   const [filter, setFilter] = useState<Filter>('all');
 
-  const onChangeTodo = (e: React.ChangeEvent<HTMLInputElement>) => setTodoList(e.target.value);
-  // const onChangeContent = (e: React.ChangeEvent<HTMLInputElement>) => setTodoList(e.target.value);
+  const onChangeTodo = (e: React.ChangeEvent<HTMLInputElement>) => setTodoTitle(e.target.value);
+  // const onChangeContent = (e: React.ChangeEvent<HTMLInputElement>) => setTodoTitle(e.target.value);
 
   //追加機能
   const onClickAdd = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    if (todoList === "") return;
+    if (todoTitle === "") return;
 
     // //新しいTodoを追加する
     const isTodo: Todo = {
       id: todos.length,
-      title: todoList,
-      // content: todoList,
+      title: todoTitle,
+      // content: todoContent,
       deleted: false,
       checked: false,
     }
 
     setTodos([isTodo, ...todos]);
-    setTodoList("");
+    setTodoTitle("");
+    // setTodoContent("");
   };
 
   //削除機能
@@ -98,7 +100,7 @@ function App() {
           <input
             type="text"
             placeholder="内容"
-            onChange={onChangeContent}
+            onChange={onChangeTodo}
           /> */}
         <p><button onClick={onClickAdd}>追加</button></p>
       </form>
@@ -133,13 +135,8 @@ function App() {
                     onChange={(e) => onClickEdit(todo.id, e.target.value)}
                   />
                 </td>
+                {/* <td>{todo.content}</td> */}
                 <td>
-                  {/* <input
-                    type="text"
-                    disabled={todo.checked}
-                    value={todo.content}
-                    onChange={(e) => onClickEdit(todo.id, todo.content ,e.target.value)}
-                  /> */}
                   <input
                     type="checkbox"
                     onChange={() => onClickCheck(todo.id, todo.checked)}
