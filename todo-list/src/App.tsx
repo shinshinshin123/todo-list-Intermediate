@@ -3,7 +3,6 @@ import { useState } from "react";
 export type Todo = {
   id: number; //id
   title: string; //タイトル
-  // content: string; //内容
   deleted: boolean; //削除されたかどうか
 };
 
@@ -22,7 +21,6 @@ function App() {
     const isTodo: Todo = {
       id: todos.length,
       title: todoList,
-      // content: todoList,
       deleted: false,
     }
 
@@ -57,13 +55,6 @@ function App() {
             placeholder="タイトル"
             onChange={onChangeTodo}
           /><br/>
-          {/* <p>詳細</p> */}
-          {/* <input
-            type="text"
-            placeholder="todoの詳細"
-            onChange={onChangeTodo}
-          /><br/> */}
-
           {/* 追加ボタン */}
           <p><button onClick={onClickAdd}>追加</button></p>
         </form>
@@ -75,8 +66,6 @@ function App() {
             <tr>
               <td>ID</td>
               <td>タイトル</td>
-              {/* <td>詳細</td> */}
-              {/* <td>状態</td> */}
             </tr>
           </thead>
         {/* todo一覧が下に配置される */}
@@ -91,7 +80,6 @@ function App() {
                   onChange={(e) => onClickEdit(todo.id, e.target.value)}
                 />
               </td>
-              {/* <td>{todo.content}</td> */}
               <td>
                 {/* 削除ボタン */}
                 <button onClick={() => onClickDelete(todo.id)}>削除</button>
