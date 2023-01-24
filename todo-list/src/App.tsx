@@ -3,7 +3,7 @@ import { useState } from "react";
 export type Todo = {
   id: number; //id
   title: string; //タイトル
-  content: string; //内容
+  // content: string; //内容
   deleted: boolean; //削除されたかどうか
 };
 
@@ -22,7 +22,7 @@ function App() {
     const isTodo: Todo = {
       id: todo.length,
       title: todoList,
-      content: todoList,
+      // content: todoList,
       deleted: false,
     }
 
@@ -45,12 +45,11 @@ function App() {
           <p>タイトル</p>
           <input
             type="text"
-            value={todoList}
             placeholder="タイトル"
             onChange={onChangeTodo}
           /><br/>
-          {/* <p>詳細</p>
-          <input
+          {/* <p>詳細</p> */}
+          {/* <input
             type="text"
             placeholder="todoの詳細"
             onChange={onChangeTodo}
@@ -67,7 +66,7 @@ function App() {
             <tr>
               <td>ID</td>
               <td>タイトル</td>
-              <td>詳細</td>
+              {/* <td>詳細</td> */}
               {/* <td>状態</td> */}
             </tr>
           </thead>
@@ -77,10 +76,7 @@ function App() {
             <tr key={index}>
               <td>{index + 1}</td>
               <td>{todo.title}</td>
-
-              {/* <td>
-                {todo.content}
-              </td> */}
+              {/* <td>{todo.content}</td> */}
               <td>
                 {/* 削除ボタン */}
                 <button onClick={() => onClickDelete(todo.id)}>削除</button>
