@@ -3,6 +3,7 @@ import { useState } from "react";
 export type Todo = {
   readonly id: number; //id
   title: string; //タイトル
+  content: string; //内容
   deleted: boolean; //削除されたかどうか
   checked: boolean; //完了か未完了かのチェック
 };
@@ -25,6 +26,7 @@ function App() {
     const isTodo: Todo = {
       id: todos.length,
       title: todoList,
+      content: todoList,
       deleted: false,
       checked: false,
     }
