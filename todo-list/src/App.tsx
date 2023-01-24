@@ -68,6 +68,7 @@ function App() {
     //filterステートの値に応じて異なる配列を返す
     switch (filter) {
       case "all":
+        // 全てのtodo
         return todo;
       case "checked":
         //完了したtodo
@@ -99,6 +100,7 @@ function App() {
             defaultValue="all"
             onChange={(e) => setFilter(e.target.value as Filter)}
           >
+            <option value="all">全てのtodo</option>
             <option value="checked">完了したtodo</option>
             <option value="unchecked">未完了のtodo</option>
           </select>
