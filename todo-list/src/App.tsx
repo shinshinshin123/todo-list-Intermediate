@@ -8,12 +8,15 @@ export type Todo = {
 };
 
 function App() {
-  //todoの追加
   const [todos, setTodos] = useState<Todo[]>([]);
   const [todoList, setTodoList] = useState("");
 
+  //フィルター
+  const [filter, setFilter] = useState<Filter>('all');
+
   const onChangeTodo = (e: React.ChangeEvent<HTMLInputElement>) => setTodoList(e.target.value);
 
+  //追加機能
   const onClickAdd = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     if (todoList === "") return;
@@ -57,6 +60,26 @@ function App() {
     setTodos(newTodo);
   }
 
+  //ステータス機能
+  //　全てのtodo、完了したtodo、未完了のtodo
+  type Filter = "all" | "checked" | "unchecked";
+
+  const filterTodos = todos.filter((todo) => {
+    //filterステートの値に応じて異なる配列を返す
+    switch (filter) {
+      case "all":
+        return todo;
+      case "checked":
+        //完了したtodo
+        return todo.checked;
+      case "unchecked":
+        //未完了のtodo
+        return !todo.checked;
+      default:
+        return todo;
+    }
+  })
+
   return (
     <div className="App">
       <h1>Todoリスト中級編</h1>
@@ -70,10 +93,19 @@ function App() {
         <p><button onClick={onClickAdd}>追加</button></p>
       </form>
     <div>
-        <h2>Todo一覧</h2>
+      <h2>Todo一覧</h2>
+        <div>
+          <select
+            defaultValue="all"
+            onChange={(e) => setFilter(e.target.value as Filter)}
+          >
+            <option value="checked">完了したtodo</option>
+            <option value="unchecked">未完了のtodo</option>
+          </select>
+        </div>
         <table>
           <tbody>
-            {todos.map((todo, index) =>(
+            {filterTodos.map((todo, index) =>(
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>
