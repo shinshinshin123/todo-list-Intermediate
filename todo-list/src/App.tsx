@@ -10,30 +10,37 @@ export type Todo = {
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
-  const [todoList, setTodoList] = useState("")
+  const [todoList, setTodoList] = useState(
+  {
+    id: todos.length,
+    title: "",
+    content: "",
+    deleted: false,
+    checked: false,
+  })
 
   //フィルター
   const [filter, setFilter] = useState<Filter>('all');
 
-  const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => setTodoList(e.target.value);
+  const onChangeTodo = (e:any) => setTodoList(e.target.value);
   // const onChangeContent = (e: React.ChangeEvent<HTMLInputElement>) => setTodoList(e.target.value);
 
   //追加機能
   const onClickAdd = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    if (todoList === "") return;
+    // if (todoList === "") return;
 
     // //新しいTodoを追加する
-    const isTodo: Todo = {
-      id: todos.length,
-      title: todoList,
-      content: todoList,
-      deleted: false,
-      checked: false,
-    }
+    // const isTodo: Todo = {
+    //   id: todos.length,
+    //   title: todoList,
+    //   content: todoList,
+    //   deleted: false,
+    //   checked: false,
+    // }
 
-    setTodos([isTodo, ...todos]);
-    setTodoList("");
+    setTodos([todoList, ...todos]);
+    // setTodoList();
   };
 
   //削除機能
@@ -52,7 +59,7 @@ function App() {
     setTodos(newTodo);
   };
 
-  //チェックボックスがチェックされた時
+  //チェックボックスがチェックされた時(ステータス機能)
   const onClickCheck = (id: number, checked: boolean) => {
     const newTodo = todos.map((todo) => {
       if (todo.id === id) {
@@ -63,7 +70,7 @@ function App() {
     setTodos(newTodo);
   }
 
-  //ステータス機能
+  //絞り込み機能
   //　全てのtodo、完了したtodo、未完了のtodo
   type Filter = "all" | "checked" | "unchecked";
 
@@ -92,13 +99,13 @@ function App() {
           <input
             type="text"
             placeholder="タイトル"
-            onChange={onChangeTitle}
+            onChange={onChangeTodo}
           />
         <p>内容</p>
           <input
             type="text"
             placeholder="内容"
-            // onChange={onChangeContent}
+            onChange={onChangeTodo}
           />
         <p><button onClick={onClickAdd}>追加</button></p>
       </form>
@@ -119,6 +126,7 @@ function App() {
             <tr>
               <td>ID</td>
               <td>タイトル</td>
+              <td>内容</td>
             </tr>
           </thead>
           <tbody>
@@ -133,7 +141,14 @@ function App() {
                     onChange={(e) => onClickEdit(todo.id, e.target.value)}
                   />
                 </td>
-                <td>{todo.content}</td>
+                <td>
+                  <input
+                    type="text"
+                    disabled={todo.checked}
+                    value={todo.content}
+                    onChange={(e) => onClickEdit(todo.id, e.target.value)}
+                  />
+                </td>
                 <td>
                   <input
                     type="checkbox"
