@@ -46,10 +46,20 @@ function App() {
   }
 
   //編集機能
-  const onClickEdit = (id: number, title: string) => {
+  const onClickEditTitle = (id: number, title: string) => {
     const newTodo = todos.map((todo) => {
       if (todo.id === id) {
         todo.title = title;
+      }
+      return todo;
+    })
+    setTodos(newTodo);
+  };
+
+  const onClickEditContnet = (id: number, content: string) => {
+    const newTodo = todos.map((todo) => {
+      if (todo.id === id) {
+        todo.content = content;
       }
       return todo;
     })
@@ -133,14 +143,14 @@ function App() {
                     disabled={todo.checked}
                     value={todo.title}
                     defaultValue={todo.title}
-                    onChange={(e) => onClickEdit(todo.id, e.target.value)}
+                    onChange={(e) => onClickEditTitle(todo.id, e.target.value)}
                   />
                   <input
                     type="text"
                     disabled={todo.checked}
                     value={todo.content}
                     defaultValue={todo.content}
-                    onChange={(e) => onClickEdit(todo.id, e.target.value)}
+                    onChange={(e) => onClickEditContnet(todo.id, e.target.value)}
                   />
                   <input
                     type="checkbox"
