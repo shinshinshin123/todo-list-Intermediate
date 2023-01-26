@@ -8,22 +8,24 @@ export type Todo = {
   checked: boolean; //完了か未完了かのチェック
 };
 
+const initialTodo = {
+  id: null,
+  title: undefined,
+  content: undefined,
+  deleted: undefined,
+  checked: undefined
+};
+
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
-  const [todoList, setTodoList] = useState({
-    id: todos.length,
-    title: "",
-    content: "",
-    deleted: false,
-    checked: false,
-  })
+  const [todoList, setTodoList] = useState(initialTodo);
 
   //フィルター
   // const [filter, setFilter] = useState<Filter>('all');
 
   //インプットフォームの状態を管理
-  const onChangeTitle = (e:any) => setTodoList(e.target.value);
-  const onChangeContent = (e:any) => setTodoList(e.target.value);
+  const onChangeTitle = (e:any) => setTodoList({...todoList, title: e.target.value});
+  const onChangeContent = (e:any) => setTodoList({...todoList, content: e.target.value});
 
   //追加機能
   const onClickAdd = (e: { preventDefault: () => void; }) => {
@@ -39,7 +41,7 @@ function App() {
     //   checked: false,
     // }
 
-    setTodos([todoList, ...todos]);
+    setTodos([...todos, todoList]);
     //入力後空にする
     // setTodoList({});
   };
