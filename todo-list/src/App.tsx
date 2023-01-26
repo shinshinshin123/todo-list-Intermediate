@@ -1,5 +1,8 @@
 import { useState } from "react";
 
+//anyを使用しました。
+//当初は個々のプロパティにそれぞれの「型」を指定ていましたが、
+//id(number)型のエラーだけがどうしても解決できなかったです。(初期値をundefinedにしているため)
 export type Todo = {
   id: any; //id
   title: any; //タイトル
