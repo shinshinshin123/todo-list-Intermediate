@@ -34,6 +34,7 @@ function App() {
     e.preventDefault();
 
     setTodos([...todos, todoList]);
+    //anyを使わないとこちらのコードがエラーになります。
     setTodoList( {
       id: undefined,
       title: undefined,
