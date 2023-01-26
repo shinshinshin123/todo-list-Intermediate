@@ -1,11 +1,6 @@
 import { useState } from "react";
 
 export type Todo = {
-  // id: number; //id
-  // title: string; //タイトル
-  // content: string; //内容
-  // deleted: boolean; //削除されたかどうか
-  // checked: boolean; //完了か未完了かのチェック
   id: any; //id
   title: any; //タイトル
   content: any; //内容
@@ -34,16 +29,6 @@ function App() {
   //追加機能
   const onClickAdd = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    // if (todoList === ) return;
-
-    // //新しいTodoを追加する
-    // const isTodo: Todo = {
-    //   id: todos.length,
-    //   title: todoList,
-    //   content: todoList,
-    //   deleted: false,
-    //   checked: false,
-    // }
 
     setTodos([...todos, todoList]);
     setTodoList( {
