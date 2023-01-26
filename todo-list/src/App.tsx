@@ -16,38 +16,51 @@ const initTodo = {
   title: undefined,
   content: undefined,
   deleted: undefined,
-  checked: undefined
+  checked: undefined,
 };
+
+//　FIXME フォーム、todo一覧などすべてがApp()に凝縮されている影響で、ちょっとコードが全体的に見返しにくくなっているかと思います。
+// src配下にcomponentsフォルダを作成してフォームや一覧を切り離してコンポーネント化できるとなお良いです！
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [todoList, setTodoList] = useState(initTodo);
+  // FIXME ↑todoの初期化はuseState({})でよいのでは？？そうすれば型をanyにしなくても問題ないかと思います。
+  // あと変数名がわかりにくいですかね、todoの配列はtodosのままで良いと思いますが、todo単体のstate名はtodo, setTodoの方がわかりやすいかなと思いました。
 
   //フィルター
-  const [filter, setFilter] = useState<Filter>('all');
+  const [filter, setFilter] = useState<Filter>("all");
 
-  const onChangeTitle = (e:any) => setTodoList({...todoList, title: e.target.value});
-  const onChangeContent = (e:any) => setTodoList({...todoList, content: e.target.value});
+  const onChangeTitle = (e: any) =>
+    setTodoList({ ...todoList, title: e.target.value });
+  const onChangeContent = (e: any) =>
+    setTodoList({ ...todoList, content: e.target.value });
 
   //追加機能
-  const onClickAdd = (e: { preventDefault: () => void; }) => {
+  const onClickAdd = (e: { preventDefault: () => void }) => {
+    // FIXME　今度はtitleが空白でも追加できるようになってしまってますね、直せたら直しましょう。
+
     e.preventDefault();
 
     setTodos([...todos, todoList]);
     //anyを使わないとこちらのコードがエラーになります。
-    setTodoList( {
+    // FIXME　上記のuseState({})でtodoの初期化を行えばこちらも解決できるかと思います。
+    // うまくいかなかったら連絡してください！
+
+    // FIXME　こちらもすべてにundefinedを付与するのではなく、setTodoList({})で初期化で問題ないと思います。
+    setTodoList({
       id: undefined,
       title: undefined,
       content: undefined,
       deleted: undefined,
-      checked: undefined
+      checked: undefined,
     });
   };
 
   //削除機能
   const onClickDelete = (id: number) => {
     setTodos(todos.filter((todo) => todo.id !== id));
-  }
+  };
 
   //編集機能
   const onClickEditTitle = (id: number, title: string) => {
@@ -56,7 +69,7 @@ function App() {
         todo.title = title;
       }
       return todo;
-    })
+    });
     setTodos(newTodo);
   };
 
@@ -66,7 +79,7 @@ function App() {
         todo.content = content;
       }
       return todo;
-    })
+    });
     setTodos(newTodo);
   };
 
@@ -77,9 +90,9 @@ function App() {
         todo.checked = !checked;
       }
       return todo;
-    })
+    });
     setTodos(newTodo);
-  }
+  };
 
   //ステータス機能
   //　全てのtodo、完了したtodo、未完了のtodo
@@ -100,32 +113,24 @@ function App() {
       default:
         return todo;
     }
-  })
+  });
 
   return (
     <div className="App">
       <h1>Todoリスト中級編</h1>
       <form>
         <p>タイトル</p>
-          <input
-            type="text"
-            placeholder="タイトル"
-            onChange={onChangeTitle}
-          /><br/>
+        <input type="text" placeholder="タイトル" onChange={onChangeTitle} />
+        <br />
         <p>内容</p>
-          <input
-            type="text"
-            placeholder="内容"
-            onChange={onChangeContent}
-          /><br/>
+        <input type="text" placeholder="内容" onChange={onChangeContent} />
+        <br />
         <p>
-          <button onClick={onClickAdd}>
-            追加
-          </button>
+          <button onClick={onClickAdd}>追加</button>
         </p>
       </form>
-    <div>
-      <h2>Todo一覧</h2>
+      <div>
+        <h2>Todo一覧</h2>
         <div>
           <select
             defaultValue="all"
@@ -138,7 +143,7 @@ function App() {
         </div>
         <table>
           <tbody>
-            {filterTodos.map((todo, index) =>(
+            {filterTodos.map((todo, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>
@@ -147,6 +152,9 @@ function App() {
                     disabled={todo.checked}
                     value={todo.title}
                     defaultValue={todo.title}
+                    // FIXME　onChangeに対してonClickEditTitleという名前も変かなと思います、onChangeEditTitleですかね、
+                    // また、編集機能がインプットタグの影響でいつでも編集できてしまう状態なのも少し気になりますね、
+                    // 各todoに編集ボタンも追記して編集ボタンを押下したときだけ編集できるようにしたいですね。
                     onChange={(e) => onClickEditTitle(todo.id, e.target.value)}
                   />
                   <input
@@ -154,7 +162,10 @@ function App() {
                     disabled={todo.checked}
                     value={todo.content}
                     defaultValue={todo.content}
-                    onChange={(e) => onClickEditContnet(todo.id, e.target.value)}
+                    // FIXME　上と同じくでクリックしてないのにclickという名前つけたくないですね
+                    onChange={(e) =>
+                      onClickEditContnet(todo.id, e.target.value)
+                    }
                   />
                   <input
                     type="checkbox"
@@ -171,6 +182,6 @@ function App() {
       </div>
     </div>
   );
-};
+}
 
 export default App;
