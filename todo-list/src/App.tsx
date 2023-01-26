@@ -46,7 +46,13 @@ function App() {
     // }
 
     setTodos([...todos, todoList]);
-    // setTodoList("");
+    setTodoList( {
+      id: undefined,
+      title: undefined,
+      content: undefined,
+      deleted: undefined,
+      checked: undefined
+    });
   };
 
   //削除機能
