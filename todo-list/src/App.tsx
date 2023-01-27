@@ -1,53 +1,37 @@
 import { useState } from "react";
 
-//anyを使用しました。
-//当初は個々のプロパティにそれぞれの「型」を指定ていましたが、
-//id(number)型のエラーだけがどうしても解決できなかったです。(初期値をundefinedにしているため)
 export type Todo = {
-  id: any; //id
-  title: any; //タイトル
-  content: any; //内容
-  deleted: any; //削除されたかどうか
-  checked: any; //完了か未完了かのチェック
-};
-
-const initTodo = {
-  id: undefined,
-  title: undefined,
-  content: undefined,
-  deleted: undefined,
-  checked: undefined,
+  id: number; //id
+  title: string; //タイトル
+  content: string; //内容
+  deleted: boolean; //削除されたかどうか
+  checked: boolean; //完了か未完了かのチェック
 };
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
-  const [todoList, setTodoList] = useState(initTodo);
+  const [todoList, setTodoList] = useState({});
 
   //フィルター
-  const [filter, setFilter] = useState<Filter>('all');
+  const [filter, setFilter] = useState<Filter>("all");
 
-  const onChangeTitle = (e:any) => setTodoList({...todoList, title: e.target.value});
-  const onChangeContent = (e:any) => setTodoList({...todoList, content: e.target.value});
+  const onChangeTitle = (e:any) =>
+    setTodoList({...todoList, title: e.target.value});
+  const onChangeContent = (e:any) =>
+    setTodoList({...todoList, content: e.target.value});
 
   //追加機能
   const onClickAdd = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-
     setTodos([...todos, todoList]);
     //anyを使わないとこちらのコードがエラーになります。
-    setTodoList( {
-      id: undefined,
-      title: undefined,
-      content: undefined,
-      deleted: undefined,
-      checked: undefined
-    });
+    setTodoList({});
   };
 
   //削除機能
   const onClickDelete = (id: number) => {
     setTodos(todos.filter((todo) => todo.id !== id));
-  }
+  };
 
   //編集機能
   const onClickEditTitle = (id: number, title: string) => {
@@ -56,7 +40,7 @@ function App() {
         todo.title = title;
       }
       return todo;
-    })
+    });
     setTodos(newTodo);
   };
 
@@ -66,7 +50,7 @@ function App() {
         todo.content = content;
       }
       return todo;
-    })
+    });
     setTodos(newTodo);
   };
 
@@ -77,9 +61,9 @@ function App() {
         todo.checked = !checked;
       }
       return todo;
-    })
+    });
     setTodos(newTodo);
-  }
+  };
 
   //ステータス機能
   //　全てのtodo、完了したtodo、未完了のtodo
@@ -100,7 +84,7 @@ function App() {
       default:
         return todo;
     }
-  })
+  });
 
   return (
     <div className="App">
