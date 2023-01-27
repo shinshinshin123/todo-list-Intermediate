@@ -16,7 +16,7 @@ const initTodo = {
   title: undefined,
   content: undefined,
   deleted: undefined,
-  checked: undefined
+  checked: undefined,
 };
 
 function App() {
