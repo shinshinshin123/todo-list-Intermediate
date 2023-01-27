@@ -10,22 +10,31 @@ export type Todo = {
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
-  const [todoList, setTodoList] = useState({});
+  const [todo, setTodo] = useState({});
 
   //フィルター
   const [filter, setFilter] = useState<Filter>("all");
 
   const onChangeTitle = (e:any) =>
-    setTodoList({...todoList, title: e.target.value});
+    setTodo({...todo, title: e.target.value});
   const onChangeContent = (e:any) =>
-    setTodoList({...todoList, content: e.target.value});
+    setTodo({...todo, content: e.target.value});
 
   //追加機能
   const onClickAdd = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    setTodos([...todos, todoList]);
-    //anyを使わないとこちらのコードがエラーになります。
-    setTodoList({});
+
+    //新しいtodoを作成する
+    const newTodo: Todo = {
+      id: todos.length,
+      title: "",
+      content: "",
+      deleted: false,
+      checked: false,
+    }
+
+    setTodos([...todos, newTodo]);
+    setTodo({});
   };
 
   //削除機能
@@ -155,6 +164,6 @@ function App() {
       </div>
     </div>
   );
-};
+}
 
 export default App;
