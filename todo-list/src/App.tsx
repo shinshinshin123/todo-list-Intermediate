@@ -100,25 +100,17 @@ function App() {
       <h1>Todoリスト中級編</h1>
       <form>
         <p>タイトル</p>
-          <input
-            type="text"
-            placeholder="タイトル"
-            onChange={onChangeTitle}
-          /><br/>
+        <input type="text" placeholder="タイトル" onChange={onChangeTitle}/>
+        <br/>
         <p>内容</p>
-          <input
-            type="text"
-            placeholder="内容"
-            onChange={onChangeContent}
-          /><br/>
+        <input type="text" placeholder="内容" onChange={onChangeContent}/>
+        <br/>
         <p>
-          <button onClick={onClickAdd}>
-            追加
-          </button>
+          <button onClick={onClickAdd}>追加</button>
         </p>
       </form>
-    <div>
-      <h2>Todo一覧</h2>
+      <div>
+        <h2>Todo一覧</h2>
         <div>
           <select
             defaultValue="all"
@@ -131,7 +123,7 @@ function App() {
         </div>
         <table>
           <tbody>
-            {filterTodos.map((todo, index) =>(
+            {filterTodos.map((todo, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>
@@ -139,14 +131,14 @@ function App() {
                     type="text"
                     disabled={todo.checked}
                     value={todo.title}
-                    defaultValue={todo.title}
+                    // defaultValue={todo.title}
                     onChange={(e) => onClickEditTitle(todo.id, e.target.value)}
                   />
                   <input
                     type="text"
                     disabled={todo.checked}
                     value={todo.content}
-                    defaultValue={todo.content}
+                    // defaultValue={todo.content}
                     onChange={(e) => onClickEditContnet(todo.id, e.target.value)}
                   />
                   <input
