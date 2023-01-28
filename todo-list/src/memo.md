@@ -9,7 +9,7 @@ src配下にcomponentsフォルダを作成してフォームや一覧を切り�
 - IXME　今度はtitleが空白でも追加できるようになってしまってますね、直せたら直しましょう。
 
 ・編集機能
-- onChangeに対してonClickEditTitleという名前も変かなと思います、onChangeEditTitleですかね。
+- onChangeに対してonClickEditTitleという名前も変かなと思います、onChangeEditTitleですかね。(完)
 - また、編集機能がインプットタグの影響でいつでも編集できてしまう状態なのも少し気になりますね。
 - 各todoに編集ボタンも追記して編集ボタンを押下したときだけ編集できるようにしたいですね。
 - 上と同じくでクリックしてないのにclickという名前つけたくないですね onClickEditContnet
