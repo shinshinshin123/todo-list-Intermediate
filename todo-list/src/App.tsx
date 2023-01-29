@@ -33,6 +33,7 @@ function App() {
       checked: false,
     }
 
+    if (todo === "") return;
     setTodos([...todos, newTodo]);
     setTodo({});
   };
@@ -43,25 +44,25 @@ function App() {
   };
 
   //編集機能
-  const onChangeEditTitle = (id: number, title: string) => {
-    const newTodo = todos.map((todo) => {
-      if (todo.id === id) {
-        todo.title = title;
-      }
-      return todo;
-    });
-    setTodos(newTodo);
-  };
+  // const onChangeEditTitle = (id: number, title: string) => {
+  //   const newTodo = todos.map((todo) => {
+  //     if (todo.id === id) {
+  //       todo.title = title;
+  //     }
+  //     return todo;
+  //   });
+  //   setTodos(newTodo);
+  // };
 
-  const onChangeEditContnet = (id: number, content: string) => {
-    const newTodo = todos.map((todo) => {
-      if (todo.id === id) {
-        todo.content = content;
-      }
-      return todo;
-    });
-    setTodos(newTodo);
-  };
+  // const onChangeEditContnet = (id: number, content: string) => {
+  //   const newTodo = todos.map((todo) => {
+  //     if (todo.id === id) {
+  //       todo.content = content;
+  //     }
+  //     return todo;
+  //   });
+  //   setTodos(newTodo);
+  // };
 
   //チェックボックスがチェックされた時
   const onClickCheck = (id: number, checked: boolean) => {
@@ -100,10 +101,10 @@ function App() {
       <h1>Todoリスト中級編</h1>
       <form>
         <p>タイトル</p>
-        <input type="text" placeholder="タイトル" onChange={onChangeTitle}/>
+        <input placeholder="タイトル" onChange={onChangeTitle}/>
         <br/>
         <p>内容</p>
-        <input type="text" placeholder="内容" onChange={onChangeContent}/>
+        <input placeholder="内容" onChange={onChangeContent}/>
         <br/>
         <p>
           <button onClick={onClickAdd}>追加</button>
@@ -130,16 +131,16 @@ function App() {
                   <input
                     type="text"
                     disabled={todo.checked}
-                    value={todo.title}
-                    // defaultValue={todo.title}
-                    onChange={(e) => onChangeEditTitle(todo.id, e.target.value)}
+                    // value={todo.title}
+                    defaultValue={todo.title}
+                    // onChange={(e) => onChangeEditTitle(todo.id, e.target.value)}
                   />
                   <input
                     type="text"
                     disabled={todo.checked}
-                    value={todo.content}
-                    // defaultValue={todo.content}
-                    onChange={(e) => onChangeEditContnet(todo.id, e.target.value)}
+                    // value={todo.content}
+                    defaultValue={todo.content}
+                    // onChange={(e) => onChangeEditContnet(todo.id, e.target.value)}
                   />
                   <input
                     type="checkbox"
