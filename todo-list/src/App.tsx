@@ -1,74 +1,68 @@
 import { useState } from "react";
 
-//anyを使用しました。
-//当初は個々のプロパティにそれぞれの「型」を指定ていましたが、
-//id(number)型のエラーだけがどうしても解決できなかったです。(初期値をundefinedにしているため)
 export type Todo = {
-  id: any; //id
-  title: any; //タイトル
-  content: any; //内容
-  deleted: any; //削除されたかどうか
-  checked: any; //完了か未完了かのチェック
-};
-
-const initTodo = {
-  id: undefined,
-  title: undefined,
-  content: undefined,
-  deleted: undefined,
-  checked: undefined
+  id: number; //id
+  title: string; //タイトル
+  content: string; //内容
+  deleted: boolean; //削除されたかどうか
+  checked: boolean; //完了か未完了かのチェック
 };
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
-  const [todoList, setTodoList] = useState(initTodo);
+  const [todo, setTodo] = useState({});
 
   //フィルター
-  const [filter, setFilter] = useState<Filter>('all');
+  const [filter, setFilter] = useState<Filter>("all");
 
-  const onChangeTitle = (e:any) => setTodoList({...todoList, title: e.target.value});
-  const onChangeContent = (e:any) => setTodoList({...todoList, content: e.target.value});
+  const onChangeTitle = (e:any) =>
+    setTodo({...todo, title: e.target.value});
+  const onChangeContent = (e:any) =>
+    setTodo({...todo, content: e.target.value});
 
   //追加機能
   const onClickAdd = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
-    setTodos([...todos, todoList]);
-    //anyを使わないとこちらのコードがエラーになります。
-    setTodoList( {
-      id: undefined,
-      title: undefined,
-      content: undefined,
-      deleted: undefined,
-      checked: undefined
-    });
+    //新しいtodoを作成する
+    const newTodo: Todo = {
+      id: todos.length,
+      title: "",
+      content: "",
+      deleted: false,
+      checked: false,
+    }
+
+    if (todo === "") return;
+    setTodos([...todos, newTodo]);
+    setTodo({});
   };
 
   //削除機能
   const onClickDelete = (id: number) => {
     setTodos(todos.filter((todo) => todo.id !== id));
-  }
+  };
 
   //編集機能
-  const onClickEditTitle = (id: number, title: string) => {
-    const newTodo = todos.map((todo) => {
-      if (todo.id === id) {
-        todo.title = title;
-      }
-      return todo;
-    })
-    setTodos(newTodo);
-  };
+  // const onChangeEditTitle = (id: number, title: string) => {
+  //   const newTodo = todos.map((todo) => {
+  //     if (todo.id === id) {
+  //       todo.title = title;
+  //     }
+  //     return todo;
+  //   });
+  //   setTodos(newTodo);
+  // };
 
-  const onClickEditContnet = (id: number, content: string) => {
-    const newTodo = todos.map((todo) => {
-      if (todo.id === id) {
-        todo.content = content;
-      }
-      return todo;
-    })
-    setTodos(newTodo);
-  };
+  // const onChangeEditContnet = (id: number, content: string) => {
+  //   const newTodo = todos.map((todo) => {
+  //     if (todo.id === id) {
+  //       todo.content = content;
+  //     }
+  //     return todo;
+  //   });
+  //   setTodos(newTodo);
+  // };
 
   //チェックボックスがチェックされた時
   const onClickCheck = (id: number, checked: boolean) => {
@@ -77,9 +71,9 @@ function App() {
         todo.checked = !checked;
       }
       return todo;
-    })
+    });
     setTodos(newTodo);
-  }
+  };
 
   //ステータス機能
   //　全てのtodo、完了したtodo、未完了のtodo
@@ -100,32 +94,24 @@ function App() {
       default:
         return todo;
     }
-  })
+  });
 
   return (
     <div className="App">
       <h1>Todoリスト中級編</h1>
       <form>
         <p>タイトル</p>
-          <input
-            type="text"
-            placeholder="タイトル"
-            onChange={onChangeTitle}
-          /><br/>
+        <input placeholder="タイトル" onChange={onChangeTitle}/>
+        <br/>
         <p>内容</p>
-          <input
-            type="text"
-            placeholder="内容"
-            onChange={onChangeContent}
-          /><br/>
+        <input placeholder="内容" onChange={onChangeContent}/>
+        <br/>
         <p>
-          <button onClick={onClickAdd}>
-            追加
-          </button>
+          <button onClick={onClickAdd}>追加</button>
         </p>
       </form>
-    <div>
-      <h2>Todo一覧</h2>
+      <div>
+        <h2>Todo一覧</h2>
         <div>
           <select
             defaultValue="all"
@@ -138,23 +124,23 @@ function App() {
         </div>
         <table>
           <tbody>
-            {filterTodos.map((todo, index) =>(
+            {filterTodos.map((todo, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>
                   <input
                     type="text"
                     disabled={todo.checked}
-                    value={todo.title}
+                    // value={todo.title}
                     defaultValue={todo.title}
-                    onChange={(e) => onClickEditTitle(todo.id, e.target.value)}
+                    // onChange={(e) => onChangeEditTitle(todo.id, e.target.value)}
                   />
                   <input
                     type="text"
                     disabled={todo.checked}
-                    value={todo.content}
+                    // value={todo.content}
                     defaultValue={todo.content}
-                    onChange={(e) => onClickEditContnet(todo.id, e.target.value)}
+                    // onChange={(e) => onChangeEditContnet(todo.id, e.target.value)}
                   />
                   <input
                     type="checkbox"
@@ -171,6 +157,6 @@ function App() {
       </div>
     </div>
   );
-};
+}
 
 export default App;
